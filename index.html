@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecondStory — Gaya Baru, Cerita Baru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2B241D;
+    --ink-soft:#5A4F42;
+    --cream:#EFE7D8;
+    --cream-deep:#E5DAC3;
+    --clay:#A8542C;
+    --clay-deep:#8C4423;
+    --olive:#5F6B47;
+    --olive-deep:#4B5538;
+    --gold:#B08D4F;
+    --paper:#FBF8F1;
+    --line: rgba(43,36,29,0.16);
+    --shadow: 0 18px 40px -22px rgba(43,36,29,0.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+
+  h1,h2,h3,.serif{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .eyebrow{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--clay);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:26px; height:1px;
+    background:var(--clay);
+    display:inline-block;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 30px;
+    border-radius:100px;
+    font-weight:600;
+    font-size:0.95rem;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--clay);
+    color:var(--paper);
+    box-shadow:0 12px 24px -12px rgba(140,68,35,0.55);
+  }
+  .btn-primary:hover{ background:var(--clay-deep); transform:translateY(-2px); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ background:var(--ink); color:var(--cream); transform:translateY(-2px); }
+  .btn-line{
+    background:transparent;
+    color:var(--paper);
+    border-color:rgba(251,248,241,0.55);
+  }
+  .btn-line:hover{ background:rgba(251,248,241,0.12); }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(239,231,216,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:1.4rem;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .logo em{
+    font-style:italic;
+    color:var(--clay);
+    font-weight:500;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:34px;
+    font-size:0.94rem;
+    font-weight:500;
+  }
+  .nav-links a{ position:relative; padding:4px 0; color:var(--ink-soft); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-cta{ display:flex; align-items:center; gap:18px; }
+
+  #nav-toggle{ display:none; }
+  .burger{ display:none; cursor:pointer; flex-direction:column; gap:5px; }
+  .burger span{ width:24px; height:2px; background:var(--ink); display:block; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:76px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    line-height:1.08;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{ font-style:italic; color:var(--clay); font-weight:500; }
+  .hero p{
+    max-width:480px;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    margin-bottom:34px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .hero-art{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:380px;
+  }
+  .hero-art .blob{
+    position:absolute;
+    width:340px; height:340px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--olive) 0%, var(--olive-deep) 70%);
+    opacity:0.9;
+  }
+  .price-tag{
+    position:relative;
+    background:var(--paper);
+    width:250px;
+    padding:34px 26px 30px;
+    border-radius:6px;
+    box-shadow:var(--shadow);
+    transform:rotate(-6deg);
+    border:1px dashed var(--gold);
+  }
+  .price-tag::before{
+    content:'';
+    position:absolute;
+    top:-16px; left:50%;
+    transform:translateX(-50%);
+    width:2px; height:20px;
+    background:var(--ink-soft);
+  }
+  .price-tag::after{
+    content:'';
+    position:absolute;
+    top:-22px; left:50%;
+    transform:translateX(-50%);
+    width:14px; height:14px;
+    border:2px solid var(--ink-soft);
+    border-radius:50%;
+    background:var(--paper);
+  }
+  .price-tag .tag-eyebrow{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--clay);
+    font-size:0.85rem;
+    margin-bottom:6px;
+  }
+  .price-tag .tag-title{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .price-tag .tag-line{
+    height:1px;
+    background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);
+    margin:14px 0;
+  }
+  .price-tag .tag-foot{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+  .price-tag .tag-hole{
+    position:absolute; top:16px; right:16px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--cream);
+    border:1px solid var(--line);
+  }
+  .float-badge{
+    position:absolute;
+    bottom:18px; left:-10px;
+    background:var(--ink);
+    color:var(--cream);
+    padding:10px 18px;
+    border-radius:100px;
+    font-size:0.82rem;
+    font-weight:600;
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- Section generic ---------- */
+  section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(1.9rem, 3.4vw, 2.5rem); line-height:1.15; }
+  .section-head p{ color:var(--ink-soft); margin-top:16px; font-size:1.02rem; }
+
+  /* ---------- Features ---------- */
+  .features{ background:var(--paper); }
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .feature-card{
+    background:var(--cream);
+    border:1px dashed var(--gold);
+    border-radius:14px;
+    padding:36px 30px;
+    position:relative;
+    transition:transform .25s ease;
+  }
+  .feature-card:hover{ transform:translateY(-6px); }
+  .feature-icon{
+    width:56px; height:56px;
+    border-radius:50%;
+    background:var(--olive);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem;
+    margin-bottom:22px;
+  }
+  .feature-card h3{
+    font-size:1.2rem;
+    margin-bottom:12px;
+  }
+  .feature-card p{ color:var(--ink-soft); font-size:0.96rem; }
+
+  /* ---------- Testimonials ---------- */
+  .testimonials{ background:var(--cream); }
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:28px;
+  }
+  .testi-card{
+    background:var(--paper);
+    border-radius:16px;
+    padding:38px 36px;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .testi-mark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:3.2rem;
+    color:var(--clay);
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .testi-card p.quote{
+    font-size:1.06rem;
+    color:var(--ink);
+    margin-bottom:22px;
+  }
+  .testi-person{ display:flex; align-items:center; gap:12px; }
+  .testi-avatar{
+    width:42px; height:42px;
+    border-radius:50%;
+    background:var(--olive);
+    color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+  }
+  .testi-name{ font-weight:600; font-size:0.95rem; }
+  .testi-role{ font-size:0.85rem; color:var(--ink-soft); }
+
+  /* ---------- Pricing ---------- */
+  .pricing{ background:var(--paper); }
+  .price-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .price-card{
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:38px 32px;
+    background:var(--cream);
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .price-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); }
+  .price-card.featured{
+    background:var(--ink);
+    color:var(--cream);
+    border-color:var(--ink);
+  }
+  .price-card.featured .price-from{ color:var(--cream); }
+  .price-card.featured .price-items li{ color:rgba(239,231,216,0.82); }
+  .price-card.featured .price-items li::before{ background:var(--gold); }
+  .price-badge{
+    align-self:flex-start;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:0.85rem;
+    color:var(--clay);
+    background:rgba(168,84,44,0.12);
+    padding:5px 14px;
+    border-radius:100px;
+  }
+  .price-card.featured .price-badge{
+    color:var(--gold);
+    background:rgba(176,141,79,0.18);
+  }
+  .price-card h3{ font-size:1.4rem; }
+  .price-from{
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+  .price-from strong{
+    font-family:'Fraunces', serif;
+    font-size:1.7rem;
+    color:var(--clay-deep);
+    display:block;
+    margin-top:4px;
+  }
+  .price-card.featured .price-from strong{ color:var(--paper); }
+  .price-items{ display:flex; flex-direction:column; gap:10px; flex:1; }
+  .price-items li{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px;
+  }
+  .price-items li::before{
+    content:'';
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--olive);
+    flex-shrink:0;
+  }
+  .price-card .btn{ width:100%; }
+
+  /* ---------- FAQ ---------- */
+  .faq{ background:var(--cream); }
+  .faq-list{ max-width:760px; }
+  .faq-item{
+    border-bottom:1px solid var(--line);
+  }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:24px 4px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-weight:600;
+    font-size:1.02rem;
+    gap:20px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .plus{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    color:var(--clay);
+    transition:transform .25s ease;
+    flex-shrink:0;
+  }
+  .faq-item[open] summary .plus{ transform:rotate(45deg); }
+  .faq-item p{
+    padding:0 4px 24px;
+    color:var(--ink-soft);
+    max-width:640px;
+  }
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background:var(--olive-deep);
+    color:var(--paper);
+    padding:70px 0;
+    text-align:center;
+  }
+  .cta-band h2{ font-size:clamp(1.7rem, 3vw, 2.2rem); margin-bottom:14px; }
+  .cta-band p{ color:rgba(251,248,241,0.8); margin-bottom:30px; }
+  .cta-band .btns{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:64px 0 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:44px;
+    border-bottom:1px solid rgba(239,231,216,0.14);
+  }
+  .footer-brand .logo{ color:var(--cream); margin-bottom:14px; }
+  .footer-brand p{
+    color:rgba(239,231,216,0.65);
+    font-size:0.92rem;
+    max-width:280px;
+  }
+  .footer-col h4{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    margin-bottom:16px;
+    color:var(--gold);
+    font-size:0.95rem;
+  }
+  .footer-col ul{ display:flex; flex-direction:column; gap:10px; }
+  .footer-col a{
+    color:rgba(239,231,216,0.72);
+    font-size:0.92rem;
+  }
+  .footer-col a:hover{ color:var(--cream); }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:26px;
+    font-size:0.85rem;
+    color:rgba(239,231,216,0.5);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; min-height:280px; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .price-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position:fixed;
+      top:64px; left:0; right:0;
+      background:var(--paper);
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+      padding:8px 28px 20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-130%);
+      transition:transform .3s ease;
+    }
+    .nav-links a{ padding:12px 0; width:100%; border-bottom:1px solid var(--line); }
+    #nav-toggle:checked ~ .nav-links{ transform:translateY(0); }
+    .burger{ display:flex; }
+    .nav-cta .btn-ghost{ display:none; }
+    section{ padding:64px 0; }
+    .footer-grid{ grid-template-columns:1fr; gap:32px; }
+  }
+
+  @media (max-width: 480px){
+    .hero{ padding:50px 0 60px; }
+    .price-tag{ width:210px; }
+    .cta-band .btns{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">Second<em>Story</em></a>
+
+    <input type="checkbox" id="nav-toggle">
+    <ul class="nav-links">
+      <li><a href="#fitur">Fitur</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="#harga">Harga</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="#harga" class="btn btn-ghost">Belanja Sekarang</a>
+      <label for="nav-toggle" class="burger"><span></span><span></span><span></span></label>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">Babak baru dalam gaya kamu</p>
+      <h1>Temukan Fashion Berkualitas dengan <span class="accent">Harga Bersahabat</span></h1>
+      <p>SecondStory menghadirkan koleksi pakaian thrift dan preloved pilihan yang masih layak pakai, berkualitas, serta telah melalui proses seleksi agar siap menemani gaya sehari-harimu.</p>
+      <div class="hero-actions">
+        <a href="#harga" class="btn btn-primary">Belanja Sekarang</a>
+        <a href="#fitur" class="btn btn-ghost">Kenali SecondStory</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="blob"></div>
+      <div class="price-tag">
+        <div class="tag-hole"></div>
+        <p class="tag-eyebrow">Babak pertama</p>
+        <p class="tag-title">Gaya Baru,<br>Cerita Baru.</p>
+        <div class="tag-line"></div>
+        <p class="tag-foot">Preloved · Terseleksi · Ramah Lingkungan</p>
+      </div>
+      <span class="float-badge">♻️ 100% Preloved Pilihan</span>
+    </div>
+  </div>
+</section>
+
+<!-- FITUR -->
+<section class="features" id="fitur">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Kenapa SecondStory</p>
+      <h2>Tiga alasan kamu bakal betah belanja di sini</h2>
+      <p>Bukan sekadar baju bekas — setiap koleksi punya cerita, dan setiap belanja kamu ikut menulis babak baru untuk bumi.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">♻️</div>
+        <h3>Ramah Lingkungan</h3>
+        <p>Membantu mengurangi limbah tekstil dengan memperpanjang usia pakaian yang masih berkualitas.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3>Kualitas Terpilih</h3>
+        <p>Setiap produk diperiksa terlebih dahulu sehingga layak digunakan dan nyaman dipakai.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Harga Lebih Hemat</h3>
+        <p>Dapatkan berbagai merek favorit dengan harga yang jauh lebih terjangkau dibandingkan produk baru.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section class="testimonials" id="testimoni">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Cerita mereka</p>
+      <h2>Sudah dipercaya ribuan anak muda</h2>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="testi-mark">“</p>
+        <p class="quote">Barangnya masih seperti baru, pengemasan rapi, dan pengiriman cepat. Sangat puas!</p>
+        <div class="testi-person">
+          <div class="testi-avatar">N</div>
+          <div>
+            <p class="testi-name">Nabila</p>
+            <p class="testi-role">Mahasiswa</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <p class="testi-mark">“</p>
+        <p class="quote">Harganya ramah di kantong, kualitasnya juga bagus. Pasti belanja lagi.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">R</div>
+          <div>
+            <p class="testi-name">Rizky</p>
+            <p class="testi-role">Freelancer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARGA -->
+<section class="pricing" id="harga">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Investasi gaya</p>
+      <h2>Daftar Harga</h2>
+      <p>Pilih babak yang cocok dengan gaya dan budget kamu — semua sudah lolos seleksi kualitas SecondStory.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="price-badge">Untuk sehari-hari</span>
+        <h3>Basic Finds</h3>
+        <p class="price-from">Mulai dari<strong>Rp35.000</strong></p>
+        <ul class="price-items">
+          <li>Kaos</li>
+          <li>Kemeja</li>
+          <li>Aksesori</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Belanja Sekarang</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-badge">Paling laris</span>
+        <h3>Premium Choice</h3>
+        <p class="price-from">Mulai dari<strong>Rp95.000</strong></p>
+        <ul class="price-items">
+          <li>Hoodie</li>
+          <li>Sweater</li>
+          <li>Jeans</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Belanja Sekarang</a>
+      </div>
+
+      <div class="price-card">
+        <span class="price-badge">Edisi terbatas</span>
+        <h3>Exclusive Collection</h3>
+        <p class="price-from">Mulai dari<strong>Rp175.000</strong></p>
+        <ul class="price-items">
+          <li>Jaket</li>
+          <li>Vintage Collection</li>
+          <li>Brand Original</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Belanja Sekarang</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Masih ragu?</p>
+      <h2>Pertanyaan yang Sering Ditanyakan</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Apakah barangnya benar-benar berkualitas?<span class="plus">+</span></summary>
+        <p>Ya. Setiap item melalui proses kurasi dan pemeriksaan kondisi sebelum dipasarkan, jadi kamu hanya menerima produk yang benar-benar layak dan nyaman dipakai.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Bagaimana cara memesan di SecondStory?<span class="plus">+</span></summary>
+        <p>Pilih produk favoritmu, tambahkan ke keranjang, lalu selesaikan pembayaran melalui metode yang tersedia. Pesanan akan langsung diproses tim kami.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Apakah bisa retur atau tukar barang?<span class="plus">+</span></summary>
+        <p>Bisa, selama produk masih dalam kondisi awal dan pengajuan dilakukan sesuai ketentuan retur yang berlaku dalam waktu yang ditentukan.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Berapa lama waktu pengiriman?<span class="plus">+</span></summary>
+        <p>Estimasi pengiriman umumnya 2–5 hari kerja tergantung lokasi tujuan dan jasa kurir yang dipilih saat checkout.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Metode pembayaran apa saja yang tersedia?<span class="plus">+</span></summary>
+        <p>SecondStory mendukung transfer bank, e-wallet, dan berbagai metode pembayaran digital lainnya untuk kemudahan bertransaksi.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Siap menulis babak gaya barumu?</h2>
+    <p>Koleksi baru datang tiap minggu — jangan sampai kehabisan.</p>
+    <div class="btns">
+      <a href="#harga" class="btn btn-primary">Belanja Sekarang</a>
+      <a href="#fitur" class="btn btn-line">Pelajari Lebih Lanjut</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="logo">Second<em>Story</em></p>
+        <p>Gaya baru, cerita baru. Fashion thrift dan preloved pilihan untuk kamu yang stylish, hemat, dan peduli lingkungan.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Jelajahi</h4>
+        <ul>
+          <li><a href="#fitur">Fitur</a></li>
+          <li><a href="#testimoni">Testimoni</a></li>
+          <li><a href="#harga">Harga</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bantuan</h4>
+        <ul>
+          <li><a href="#">Cara Belanja</a></li>
+          <li><a href="#">Kebijakan Retur</a></li>
+          <li><a href="#">Pengiriman</a></li>
+          <li><a href="#">Hubungi Kami</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ikuti Kami</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SecondStory. Semua hak dilindungi.</p>
+      <p>Dibuat dengan ♻️ untuk bumi yang lebih baik.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
